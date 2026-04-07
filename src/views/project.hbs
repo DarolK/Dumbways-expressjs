@@ -1,0 +1,42 @@
+<section id="project" class="project-page">
+        <h2>Add Projects</h2>
+        <form id="projectForm">
+            <input type="text" id="projectName" placeholder="Project Name" required>
+
+            <div class="date-group">
+                <input type="date" id="startDate" required>
+                <input type="date" id="endDate" required>
+            </div>
+
+            <textarea id="description" placeholder="Description" rows="4"></textarea>
+
+            <div class="checkbox-group">
+                <label><input type="checkbox" value="Node JS"> Node JS</label>
+                <label><input type="checkbox" value="React JS"> React JS</label>
+                <label><input type="checkbox" value="Next JS"> Next JS</label>
+                <label><input type="checkbox" value="TypeScript"> TypeScript</label>
+            </div>
+
+            <input type="file" id="image" accept="image/*">
+            <button type="submit" id="submitBtn">Submit</button>
+        </form>
+
+        <h2 style="text-align: center; margin-top: 50px; margin-bottom: 20px;">MY PROJECTS</h2>
+        
+        <div style="display: flex; justify-content: center; margin-bottom: 30px;">
+            <div style="position: relative; width: 100%; max-width: 400px;">
+                <i class="bi bi-search" style="position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #666;"></i>
+                <input 
+                    type="text" 
+                    id="searchProject" 
+                    placeholder="Search projects or tech stack..." 
+                    oninput="filterData(this.value)"
+                    style="width: 100%; padding: 12px 12px 12px 40px; border-radius: 8px; border: 1px solid #ccc; font-family: 'Poppins', sans-serif; outline: none;"
+                >
+            </div>
+        </div>
+
+        <div id="projectList" class="project-list"></div>
+    </section>
+
+    <script src="assets/scripts/project.js"></script>

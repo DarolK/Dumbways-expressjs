@@ -1,0 +1,391 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #595959, #3d3d3d, #222222, #121212);
+    background-size: 400% 400%;
+    animation: gradientMove 18s ease-in-out infinite;
+    
+    /* Warna font modern dan elegan */
+    color: #F5F5F7; 
+    
+    /* Sedikit spasi antar huruf untuk kesan premium pada font sans-serif */
+    letter-spacing: 0.3px; 
+}
+
+/* ANIMATION */
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* NAVBAR */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 50px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    z-index: 1000;
+}
+
+.navbar a {
+    color: #d1d1d1;
+    margin-left: 20px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.navbar a:hover {
+    color: white;
+}
+
+/* HERO */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 120px 80px;
+    gap: 60px;
+}
+
+.hero-text {
+    max-width: 500px;
+}
+
+.hero-text h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+.hero-text p {
+    margin-bottom: 25px;
+    color: #ddd;
+}
+
+.hero-img {
+    width: 350px;
+    height: 350px;
+    border-radius: 50%;
+    background: url('/assets/img/profil.jpg') center/cover;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    transition: 0.4s;
+}
+
+.hero-img:hover {
+    transform: scale(1.05);
+}
+
+/* SOSMED */
+.sosmed {
+    display: flex;
+    gap: 15px;
+}
+
+.sosmed a {
+    width: 45px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+    color: white;
+    transition: 0.3s;
+}
+
+.sosmed a:hover {
+    transform: translateY(-3px);
+    background: #555;
+}
+
+/* PROJECT PAGE */
+.project-page {
+    padding: 120px 80px;
+}
+
+/* FORM */
+#projectForm {
+    max-width: 700px;
+    margin: auto;
+    background: rgba(255,255,255,0.05);
+    padding: 25px;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    margin-bottom: 50px;
+}
+.project-page h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#projectForm input,
+#projectForm textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 12px;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+}
+
+.date-group {
+    display: flex;
+    gap: 10px;
+}
+
+.checkbox-group {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+/* BUTTON */
+#projectForm button {
+    width: 100%;
+    padding: 12px;
+    border-radius: 25px;
+    border: none;
+    background: white;
+    color: black;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#projectForm button:hover {
+    background: #ddd;
+}
+
+/* PROJECT LIST */
+.project-list {
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+/* CARD */
+.project-card {
+    background: rgba(255,255,255,0.08);
+    border-radius: 15px;
+    padding: 15px;
+    backdrop-filter: blur(10px);
+    transition: 0.3s;
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+}
+
+.project-img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.project-card h3 {
+    margin-bottom: 5px;
+}
+
+.project-card p {
+    font-size: 14px;
+    color: #ccc;
+}
+
+/* ACTION BUTTON */
+.actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.actions button {
+    flex: 1;
+    padding: 8px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.actions button:first-child {
+    background: #ffffff;
+    color: rgb(26, 25, 25);
+}
+
+.actions button:last-child {
+    background: #2e2e2e;
+    color: white;
+}
+
+.project-list {
+   display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.project-card {
+    width: 280px;
+    background: #2c2c2c;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    display: flex;
+    flex-direction: column;
+    transition: 0.3s;
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+}
+
+/* ✅ Gambar di atas */
+.project-img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+}
+
+/* ✅ Isi konten */
+.project-content {
+    padding: 15px;
+    flex-grow: 1;
+}
+
+.project-content h3 {
+    margin-bottom: 8px;
+    font-size: 18px;
+}
+
+.project-content p {
+    font-size: 13px;
+    color: #ccc;
+}
+
+/* ✅ Tombol di bawah */
+.project-actions {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    gap: 10px;
+}
+
+.project-actions button {
+    flex: 1;
+    padding: 8px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* tombol edit */
+.project-actions button:first-child {
+    background: #e0e0e0;
+}
+
+/* tombol delete */
+.project-actions button:last-child {
+    background: #444;
+    color: white;
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.contact-box {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(15px);
+    padding: 30px;
+    border-radius: 20px;
+    width: 320px;
+    box-shadow: 
+        0 10px 30px rgba(49, 49, 49, 0.6),
+        0 20px 60px rgba(34, 34, 34, 0.6);
+    text-align: center;
+}
+
+.contact-box h2 {
+    margin-bottom: 20px;
+    color: #e5e7eb;
+    text-shadow: 0 0 10px #363636;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 10px;
+    outline: none;
+    background: rgba(255,255,255,0.08);
+    color: #fff;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+input:focus, textarea:focus {
+    background: rgba(255,255,255,0.15);
+    box-shadow: 0 0 10px #503206;
+}
+
+textarea {
+    resize: none;
+    height: 100px;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 25px;
+    background: linear-gradient(45deg, #252525, #302f2f);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: 0.3s;
+}
+
+button:hover {
+    transform: scale(1.08);
+    box-shadow: 0 5px 25px rgba(10, 10, 10, 0.6);
+}
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .hero {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .hero-img {
+        width: 250px;
+        height: 250px;
+    }
+
+    .checkbox-group {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
