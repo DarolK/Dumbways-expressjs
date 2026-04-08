@@ -1,3 +1,12 @@
+/* ================================================================
+   PORTFOLIO WEBSITE STYLES
+   Clean, organized CSS with proper commenting
+   Last Updated: 2026-04-08
+   ================================================================ */
+
+/* ================================================================
+   1. RESET & BASE STYLES
+   ================================================================ */
 * {
     margin: 0;
     padding: 0;
@@ -13,22 +22,29 @@ body {
     background: linear-gradient(135deg, #595959, #3d3d3d, #222222, #121212);
     background-size: 400% 400%;
     animation: gradientMove 18s ease-in-out infinite;
-    
-    /* Warna font modern dan elegan */
-    color: #F5F5F7; 
-    
-    /* Sedikit spasi antar huruf untuk kesan premium pada font sans-serif */
-    letter-spacing: 0.3px; 
+    color: #F5F5F7;
+    letter-spacing: 0.3px;
+    line-height: 1.6;
 }
 
-/* ANIMATION */
 @keyframes gradientMove {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
 }
 
-/* NAVBAR */
+/* ================================================================
+   2. LAYOUT & CONTAINER
+   ================================================================ */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* ================================================================
+   3. NAVIGATION / NAVBAR
+   ================================================================ */
 .navbar {
     position: fixed;
     top: 0;
@@ -54,7 +70,9 @@ body {
     color: white;
 }
 
-/* HERO */
+/* ================================================================
+   4. HERO SECTION (HOME PAGE)
+   ================================================================ */
 .hero {
     min-height: 100vh;
     display: flex;
@@ -91,7 +109,9 @@ body {
     transform: scale(1.05);
 }
 
-/* SOSMED */
+/* ================================================================
+   5. SOCIAL MEDIA LINKS
+   ================================================================ */
 .sosmed {
     display: flex;
     gap: 15px;
@@ -114,269 +134,362 @@ body {
     background: #555;
 }
 
-/* PROJECT PAGE */
-.project-page {
-    padding: 120px 80px;
-}
-
-/* FORM */
-#projectForm {
-    max-width: 700px;
-    margin: auto;
-    background: rgba(255,255,255,0.05);
-    padding: 25px;
-    border-radius: 15px;
-    backdrop-filter: blur(10px);
-    margin-bottom: 50px;
-}
-.project-page h2 {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-#projectForm input,
-#projectForm textarea {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 12px;
-    border-radius: 8px;
+/* ================================================================
+   6. BUTTON STYLES (All Variants)
+   ================================================================ */
+.btn {
+    padding: 12px 24px;
     border: none;
-    outline: none;
-}
-
-.date-group {
-    display: flex;
-    gap: 10px;
-}
-
-.checkbox-group {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-}
-
-/* BUTTON */
-#projectForm button {
-    width: 100%;
-    padding: 12px;
-    border-radius: 25px;
-    border: none;
-    background: white;
-    color: black;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-#projectForm button:hover {
-    background: #ddd;
-}
-
-/* PROJECT LIST */
-.project-list {
-    margin-top: 40px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-}
-
-/* CARD */
-.project-card {
-    background: rgba(255,255,255,0.08);
-    border-radius: 15px;
-    padding: 15px;
-    backdrop-filter: blur(10px);
-    transition: 0.3s;
-}
-
-.project-card:hover {
-    transform: translateY(-5px);
-}
-
-.project-img {
-    width: 100%;
-    height: 160px;
-    object-fit: cover;
     border-radius: 10px;
-    margin-bottom: 10px;
-}
-
-.project-card h3 {
-    margin-bottom: 5px;
-}
-
-.project-card p {
-    font-size: 14px;
-    color: #ccc;
-}
-
-/* ACTION BUTTON */
-.actions {
-    display: flex;
-    gap: 10px;
-    margin-top: 10px;
-}
-
-.actions button {
-    flex: 1;
-    padding: 8px;
-    border-radius: 10px;
-    border: none;
     cursor: pointer;
+    font-weight: 600;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Poppins', sans-serif;
 }
 
-.actions button:first-child {
-    background: #ffffff;
-    color: rgb(26, 25, 25);
-}
-
-.actions button:last-child {
-    background: #2e2e2e;
+/* Primary button - Green gradient */
+.btn-primary {
+    background: linear-gradient(135deg, #4CAF50, #45a049);
     color: white;
 }
 
-.project-list {
-   display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
-    justify-content: center;
+.btn-primary:hover {
+    background: linear-gradient(135deg, #45a049, #3d8b40);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(76, 175, 80, 0.3);
 }
 
-.project-card {
-    width: 280px;
-    background: #2c2c2c;
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+/* Secondary button - Transparent with border */
+.btn-secondary {
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+.btn-secondary:hover {
+    background: rgba(255,255,255,0.2);
+    transform: translateY(-2px);
+}
+
+/* Edit button - Blue gradient */
+.btn-edit {
+    background: linear-gradient(135deg, #2196F3, #1976D2);
+    color: white;
+}
+
+.btn-edit:hover {
+    background: linear-gradient(135deg, #1976D2, #1565C0);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(33, 150, 243, 0.3);
+}
+
+/* Delete button - Red gradient */
+.btn-delete {
+    background: linear-gradient(135deg, #f44336, #d32f2f);
+    color: white;
+}
+
+.btn-delete:hover {
+    background: linear-gradient(135deg, #d32f2f, #b71c1c);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(244, 67, 54, 0.3);
+}
+
+/* ================================================================
+   7. FORM STYLES
+   ================================================================ */
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #fff;
+    font-size: 14px;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 15px;
+    border: 2px solid rgba(255,255,255,0.2);
+    border-radius: 10px;
+    background: rgba(255,255,255,0.05);
+    color: #fff;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    font-family: 'Poppins', sans-serif;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #4CAF50;
+    background: rgba(255,255,255,0.1);
+    box-shadow: 0 0 20px rgba(76, 175, 80, 0.3);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: rgba(255,255,255,0.6);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+    font-family: 'Poppins', sans-serif;
+}
+
+
+/* ================================================================
+   8. PROJECT PAGE STYLES
+   ================================================================ */
+.project-page {
+    padding: 120px 80px 80px;
+    min-height: 100vh;
+}
+
+.project-page .container {
     display: flex;
     flex-direction: column;
-    transition: 0.3s;
+    align-items: center;
+    gap: 60px;
 }
 
-.project-card:hover {
-    transform: translateY(-5px);
-}
-
-/* ✅ Gambar di atas */
-.project-img {
+/* ------- Add New Project Section ------- */
+.add-project-section {
     width: 100%;
-    height: 160px;
-    object-fit: cover;
+    max-width: 600px;
+    margin: 0 auto;
+    padding-top: 40px;
 }
 
-/* ✅ Isi konten */
+.add-project-section h1 {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 2.5rem;
+    color: #fff;
+}
+
+.project-form {
+    width: 100%;
+    background: rgba(255,255,255,0.08);
+    padding: 40px;
+    border-radius: 20px;
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+/* ------- Projects List Section ------- */
+.projects-list-section {
+    width: 100%;
+}
+
+.projects-list-section h2 {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 2rem;
+    color: #fff;
+}
+
+.project-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+    width: 100%;
+}
+
+.project-item {
+    background: rgba(255,255,255,0.08);
+    border-radius: 20px;
+    padding: 25px;
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.project-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    border-color: rgba(255,255,255,0.2);
+}
+
 .project-content {
-    padding: 15px;
     flex-grow: 1;
+    margin-bottom: 20px;
 }
 
 .project-content h3 {
-    margin-bottom: 8px;
-    font-size: 18px;
+    margin-bottom: 12px;
+    font-size: 1.3rem;
 }
 
-.project-content p {
-    font-size: 13px;
+.project-link {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.project-link:hover {
+    color: #4CAF50;
+}
+
+.project-description {
     color: #ccc;
+    line-height: 1.6;
+    font-size: 14px;
 }
 
-/* ✅ Tombol di bawah */
-.project-actions {
+.project-item .project-actions {
     display: flex;
-    justify-content: space-between;
-    padding: 15px;
     gap: 10px;
+    justify-content: flex-end;
 }
 
-.project-actions button {
-    flex: 1;
-    padding: 8px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
+.no-projects {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 40px 20px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 15px;
+    border: 1px solid rgba(255,255,255,0.1);
 }
 
-/* tombol edit */
-.project-actions button:first-child {
-    background: #e0e0e0;
+.no-projects p {
+    color: #ccc;
+    font-size: 18px;
+    margin: 0;
 }
 
-/* tombol delete */
-.project-actions button:last-child {
-    background: #444;
-    color: white;
+/* ------- Project Detail Section ------- */
+.project-detail-section {
+    width: 100%;
+    margin-bottom: 60px;
 }
 
-.container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
-
-.contact-box {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(15px);
-    padding: 30px;
+.project-detail-card {
+    max-width: 800px;
+    margin: 0 auto;
+    background: rgba(255,255,255,0.08);
     border-radius: 20px;
-    width: 320px;
-    box-shadow: 
-        0 10px 30px rgba(49, 49, 49, 0.6),
-        0 20px 60px rgba(34, 34, 34, 0.6);
+    padding: 40px;
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255,255,255,0.1);
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.project-header {
+    margin-bottom: 30px;
     text-align: center;
 }
 
-.contact-box h2 {
-    margin-bottom: 20px;
-    color: #e5e7eb;
-    text-shadow: 0 0 10px #363636;
-}
-
-input, textarea {
-    width: 100%;
-    padding: 12px;
-    margin: 10px 0;
-    border: none;
-    border-radius: 10px;
-    outline: none;
-    background: rgba(255,255,255,0.08);
+.project-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
     color: #fff;
+}
+
+.project-id {
+    color: #ccc;
     font-size: 14px;
-    transition: 0.3s;
+    background: rgba(255,255,255,0.1);
+    padding: 5px 15px;
+    border-radius: 20px;
+    display: inline-block;
 }
 
-input:focus, textarea:focus {
-    background: rgba(255,255,255,0.15);
-    box-shadow: 0 0 10px #503206;
+.project-description h3 {
+    color: #fff;
+    margin-bottom: 15px;
+    font-size: 1.4rem;
 }
 
-textarea {
-    resize: none;
-    height: 100px;
+.project-description p {
+    color: #ccc;
+    line-height: 1.7;
+    font-size: 16px;
 }
 
-button {
-    width: 100%;
-    padding: 12px;
-    border: none;
-    border-radius: 25px;
-    background: linear-gradient(45deg, #252525, #302f2f);
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    margin-top: 15px;
-    transition: 0.3s;
+/* ================================================================
+   9. CONTACT PAGE STYLES
+   ================================================================ */
+.contact-page {
+    padding: 120px 80px 80px;
+    min-height: 100vh;
 }
 
-button:hover {
-    transform: scale(1.08);
-    box-shadow: 0 5px 25px rgba(10, 10, 10, 0.6);
+.contact-content {
+    max-width: 600px;
+    margin: 0 auto;
 }
-/* RESPONSIVE */
+
+.contact-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.contact-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    color: #fff;
+}
+
+.contact-header p {
+    color: #ccc;
+    font-size: 18px;
+}
+
+.contact-form-container {
+    margin-bottom: 50px;
+}
+
+.contact-form {
+    background: rgba(255,255,255,0.08);
+    padding: 40px;
+    border-radius: 20px;
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+/* ================================================================
+   10. RESPONSIVE DESIGN (Mobile & Tablet)
+   ================================================================ */
 @media (max-width: 768px) {
+    /* Navbar */
+    .navbar {
+        padding: 15px 20px;
+    }
+
+    /* Hero Section */
     .hero {
         flex-direction: column;
         text-align: center;
+        padding: 120px 20px;
+        gap: 40px;
+    }
+
+    .hero-text h1 {
+        font-size: 2.2rem;
     }
 
     .hero-img {
@@ -384,8 +497,50 @@ button:hover {
         height: 250px;
     }
 
-    .checkbox-group {
-        flex-direction: column;
-        gap: 10px;
+    /* Project & Contact Pages */
+    .project-page,
+    .contact-page {
+        padding: 100px 20px 40px;
     }
-}
+
+    .project-page .container {
+        gap: 40px;
+    }
+
+    .add-project-section {
+        max-width: 100%;
+    }
+
+    .project-form,
+    .contact-form,
+    .project-detail-card {
+        padding: 30px 20px;
+    }
+
+    /* Project List */
+    .project-list {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .project-item .project-actions {
+        flex-direction: column;
+    }
+
+    /* Buttons */
+    .btn {
+        justify-content: center;
+    }
+
+    /* Headings */
+    .add-project-section h1,
+    .contact-header h1 {
+        font-size: 2rem;
+    }
+
+    .projects-list-section h2 {
+        font-size: 1.5rem;
+    }
+
+    .project-header h1 {
+        font-size: 1.8rem
