@@ -1,12 +1,34 @@
-// index js
 import express from "express";
 import { engine } from "express-handlebars";
+import pg from "pg";
 
 const app = express();
 const port = 3000;
 
+const { Pool } = pg;
+
+// ==========================================
+// Konfigurasi Database PostgreSQL
+// ==========================================
+const pool = new Pool({
+  user: 'postgres',
+  host: 'localhost',
+  database: 'portofolio_db.',
+  password: 'admin', 
+  port: 9999, 
+});
+
+pool.connect((err) => {
+  if (err) {
+    console.error('Koneksi ke Database Gagal:', err.stack);
+  } else {
+    console.log('Berhasil terhubung ke database PostgreSQL');
+  }
+});
+
+// Middleware
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 
 // Handlebars Configuration
 app.engine(
@@ -16,137 +38,153 @@ app.engine(
     defaultLayout: "main",
     layoutsDir: "./src/views/layouts",
     partialsDir: "./src/views/partials",
+    helpers: {
+      // Helper untuk mengecek checkbox jika diperlukan nanti
+      includes: (array, value) => array && array.includes(value)
+    }
   }),
 );
 
 app.set("view engine", "hbs");
 app.set("views", "./src/views");
-
-// Static Files (CSS, Images, etc.)
 app.use("/assets", express.static("./src/assets"));
 
-// In-memory data storage for projects
-let projects = [
-  {
-    id: 1,
-    name: "Personal Portfolio Website",
-    description: "A responsive portfolio website built with Express.js and Handlebars"
-  },
-  {
-    id: 2,
-    name: "E-commerce Platform",
-    description: "Full-stack e-commerce solution with payment integration"
-  }
-];
-
-// Helper function to generate next ID
-const getNextId = () => {
-  const maxId = projects.length > 0 ? Math.max(...projects.map(({ id }) => id)) : 0;
-  return maxId + 1;
-};
-
+// ==========================================
 // --- ROUTING ---
+// ==========================================
 
-// Home routes
-app.get("/", (req, res) => {
-  res.render("home", { title: "MinahasaCode" });
-});
+app.get("/", (req, res) => res.render("home", { title: "MinahasaCode" }));
+app.get("/home", (req, res) => res.render("home", { title: "MinahasaCode" }));
 
-app.get("/home", (req, res) => {
-  res.render("home", { title: "MinahasaCode" });
-});
-
-// Contact routes
+// Contact Routes
 app.get("/contact", (req, res) => {
-  res.render("contact", { title: "MinahasaCode" });
+  res.render("contact", { title: "Contact Me" });
 });
 
-app.post("/contact", (req, res) => {
+app.post("/contact", async (req, res) => {
   const { name, email, message } = req.body;
-  console.log(`Received contact form submission: Name=${name}, Email=${email}, Message=${message}`);
 
-  // Redirect to thank you page
-  res.redirect('/thank-you');
+  try {
+    await pool.query(
+      "INSERT INTO messages (name, email, message) VALUES ($1, $2, $3)",
+      [name, email, message]
+    );
+    
+    res.render("contact", { 
+      title: "Contact Me", 
+      success_msg: "Pesan Anda berhasil terkirim!" 
+    });
+  } catch (error) {
+    console.error(error);
+    res.render("contact", { 
+      title: "Contact Me", 
+      error_msg: "Maaf, terjadi kesalahan. Silakan coba lagi." 
+    });
+  }
 });
 
-app.get('/thank-you', (req, res) => {
-  res.send('Thank you for contacting me!');
-});
+// ==========================================
+// Project Routes (Relational)
+// ==========================================
 
-// Project routes
-
-// GET /project - Display project form and list, or project detail if id query param is provided
-app.get("/project", (req, res) => {
+app.get("/project", async (req, res) => {
   const { id } = req.query;
-  let selectedProject = null;
+  
+  try {
+    // Ambil semua project dengan JOIN ke user
+    const projectsRes = await pool.query(`
+      SELECT projects.*, users.username AS author_name 
+      FROM projects 
+      LEFT JOIN users ON projects.author_id = users.id 
+      ORDER BY projects.id DESC
+    `);
 
-  if (id) {
-    const projectId = parseInt(id);
-    selectedProject = projects.find(({ id: projId }) => projId === projectId);
+    //Ambil semua teknologi untuk checkbox di form
+    const techRes = await pool.query("SELECT * FROM technologies");
+
+    let selectedProject = null;
+    if (id) {
+      const selectedRes = await pool.query(`
+        SELECT projects.*, users.username AS author_name 
+        FROM projects 
+        LEFT JOIN users ON projects.author_id = users.id 
+        WHERE projects.id = $1`, [id]);
+      selectedProject = selectedRes.rows[0];
+    }
+
+    res.render("project", {
+      title: selectedProject ? `Project: ${selectedProject.name}` : "My Projects",
+      projects: projectsRes.rows,
+      allTechnologies: techRes.rows,
+      selectedProject: selectedProject
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal Server Error");
   }
-
-  res.render("project", {
-    title: selectedProject ? `Project: ${selectedProject.name}` : "My Projects",
-    projects: projects,
-    selectedProject: selectedProject
-  });
 });
 
-// POST /my-projects - Create new project (CREATE)
-app.post("/my-projects", (req, res) => {
-  const { name, description } = req.body;
+app.post("/my-projects", async (req, res) => {
+  const { name, description, technologies } = req.body; 
+  
+  
+  const author_id = 1; 
+  try {
+    //  Insert ke tabel projects
+    const projectRes = await pool.query(
+      "INSERT INTO projects (name, description, author_id) VALUES ($1, $2, $3) RETURNING id",
+      [name, description, author_id]
+    );
 
-  const newProject = {
-    id: getNextId(),
-    name,
-    description
-  };
+    const projectId = projectRes.rows[0].id;
 
-  projects.push(newProject);
-  console.log(`New project added: ${JSON.stringify(newProject)}`);
+    // Insert ke tabel jembatan project_technologies
+    if (technologies) {
+      // Jika hanya satu checkbox yang dipilih, Express mengirim string, bukan array
+      const techArray = Array.isArray(technologies) ? technologies : [technologies];
+      
+      for (const techId of techArray) {
+        await pool.query(
+          "INSERT INTO project_technologies (project_id, tech_id) VALUES ($1, $2)",
+          [projectId, techId]
+        );
+      }
+    }
 
-  res.redirect('/project');
+    res.redirect('/project');
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Gagal menambah project");
+  }
 });
 
-// PUT /project/:id - Update project (UPDATE)
-app.put("/project/:id", (req, res) => {
+// Update Project
+app.put("/project/:id", async (req, res) => {
   const { id } = req.params;
   const { name, description } = req.body;
-  const projectId = parseInt(id);
 
-  const projectIndex = projects.findIndex(({ id: projId }) => projId === projectId);
-
-  if (projectIndex === -1) {
-    return res.status(404).json({ error: 'Project not found' });
+  try {
+    await pool.query(
+      "UPDATE projects SET name = $1, description = $2 WHERE id = $3",
+      [name, description, id]
+    );
+    res.json({ success: true });
+  } catch (error) {
+    res.status(500).json({ error: 'Gagal update' });
   }
-
-  projects[projectIndex] = {
-    ...projects[projectIndex],
-    name,
-    description
-  };
-
-  console.log(`Project updated: ${JSON.stringify(projects[projectIndex])}`);
-  res.json({ success: true, project: projects[projectIndex] });
 });
 
-// DELETE /project/:id - Delete project (DELETE)
-app.delete("/project/:id", (req, res) => {
+// Delete Project
+app.delete("/project/:id", async (req, res) => {
   const { id } = req.params;
-  const projectId = parseInt(id);
-
-  const initialLength = projects.length;
-  projects = projects.filter(({ id: projId }) => projId !== projectId);
-
-  if (projects.length === initialLength) {
-    return res.status(404).json({ error: 'Project not found' });
+  try {
+    await pool.query("DELETE FROM projects WHERE id = $1", [id]);
+    res.json({ success: true });
+  } catch (error) {
+    res.status(500).json({ error: 'Gagal hapus' });
   }
-
-  console.log(`Project with id ${projectId} deleted`);
-  res.json({ success: true, message: 'Project deleted successfully' });
 });
 
-// Start Server
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
 });

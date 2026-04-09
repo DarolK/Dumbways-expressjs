@@ -1,13 +1,19 @@
 <div class="project-page">
     <div class="container">
+        
         {{#if selectedProject}}
-        <!-- Project Detail Section -->
         <section class="project-detail-section">
             <div class="project-detail-card">
                 <div class="project-header">
                     <h1>{{selectedProject.name}}</h1>
                     <span class="project-id">Project ID: {{selectedProject.id}}</span>
                 </div>
+
+                {{#if selectedProject.author_name}}
+                <div class="project-author">
+                    <p><strong>Created by:</strong> {{selectedProject.author_name}}</p>
+                </div>
+                {{/if}}
 
                 <div class="project-description">
                     <h3>Description</h3>
@@ -27,8 +33,8 @@
                 </div>
             </div>
         </section>
+
         {{else}}
-        <!-- Add New Project Section -->
         <section class="add-project-section">
             <h1>Add New Project</h1>
             <form action="/my-projects" method="post" class="project-form">
@@ -42,18 +48,34 @@
                     <textarea id="project-description" name="description" placeholder="Describe your project" required></textarea>
                 </div>
 
-                <button type="submit" class="btn btn-primary">Add Project</button>
+                <div class="form-group">
+                    <label>Technologies</label>
+                    <div class="checkbox-group" style="display: flex; gap: 15px; flex-wrap: wrap; margin-top: 5px;">
+                        {{#each allTechnologies}}
+                        <label style="cursor: pointer;">
+                            <input type="checkbox" name="technologies" value="{{this.id}}"> {{this.name}}
+                        </label>
+                        {{/each}}
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="margin-top: 15px;">Add Project</button>
             </form>
         </section>
 
-        <!-- Projects List Section -->
         <section class="projects-list-section">
             <h2>My Projects</h2>
             <div class="project-list">
+                
                 {{#each projects}}
                 <div class="project-item">
                     <div class="project-content">
                         <h3><a href="/project?id={{this.id}}" class="project-link">{{this.name}}</a></h3>
+                        
+                        {{#if this.author_name}}
+                        <small class="text-muted">By: {{this.author_name}}</small>
+                        {{/if}}
+
                         <p class="project-description">{{this.description}}</p>
                     </div>
                     <div class="project-actions">
@@ -70,63 +92,69 @@
                     <p>No projects found. Add your first project above!</p>
                 </div>
                 {{/each}}
+
             </div>
         </section>
         {{/if}}
+
     </div>
 </div>
 
 <script>
-// Project management functions
-async function deleteProject(id) {
-    if (confirm('Are you sure you want to delete this project?')) {
-        try {
-            const response = await fetch(`/project/${id}`, {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json'
+    // ==========================================
+    // Project Management Functions
+    // ==========================================
+
+    async function deleteProject(id) {
+        if (confirm('Are you sure you want to delete this project?')) {
+            try {
+                const response = await fetch(`/project/${id}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    location.reload();
+                } else {
+                    alert('Failed to delete project. Please try again.');
                 }
-            });
-
-            if (response.ok) {
-                location.reload();
-            } else {
-                alert('Failed to delete project');
+            } catch (error) {
+                console.error('Error deleting project:', error);
+                alert('An error occurred while deleting the project.');
             }
-        } catch (error) {
-            console.error('Error deleting project:', error);
-            alert('Error deleting project');
         }
     }
-}
 
-async function editProject(id) {
-    const name = prompt('Enter new project name:');
-    const description = prompt('Enter new project description:');
+    async function editProject(id) {
+        const name = prompt('Enter new project name:');
+        if (name === null) return; 
+        
+        const description = prompt('Enter new project description:');
+        if (description === null) return;
 
-    if (name && description) {
-        try {
-            const response = await fetch(`/project/${id}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ name, description })
-            });
+        if (name.trim() && description.trim()) {
+            try {
+                const response = await fetch(`/project/${id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ name, description })
+                });
 
-            if (response.ok) {
-                location.reload();
-            } else {
-                alert('Failed to update project');
+                if (response.ok) {
+                    location.reload();
+                } else {
+                    alert('Failed to update project. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error updating project:', error);
+                alert('An error occurred while updating the project.');
             }
-        } catch (error) {
-            console.error('Error updating project:', error);
-            alert('Error updating project');
+        } else {
+            alert('Project name and description cannot be empty.');
         }
     }
-}
 </script>
-
-
-
-    
