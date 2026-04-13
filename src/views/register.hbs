@@ -1,0 +1,43 @@
+<div class="contact-page">
+    <div class="contact-content">
+        <div class="contact-header">
+            <h1>Register</h1>
+            <p>Silakan daftar untuk membuat akun.</p>
+        </div>
+
+        <div class="contact-form-container">
+            <form action="/register" method="POST" class="project-form">
+                {{#if error_msg}}
+                    <div style="background: rgba(244, 67, 54, 0.2); border: 1px solid #f44336; color: #fff; padding: 10px; border-radius: 10px; margin-bottom: 20px; text-align: center;">
+                        {{error_msg}}
+                    </div>
+                {{/if}}
+
+                <div class="form-group">
+                    <label for="name">Nama Lengkap</label>
+                    <input type="text" id="name" name="name" placeholder="Nama Anda" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Email aktif" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Min 8 karakter" required>
+                </div>
+
+                <div style="text-align: right;">
+                    <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">
+                        Daftar Sekarang
+                    </button>
+                </div>
+
+                <p style="text-align: center; margin-top: 20px; font-size: 14px; color: #ccc;">
+                    Sudah punya akun? <a href="/login" style="color: #4CAF50; text-decoration: none;">Login di sini</a>
+                </p>
+            </form>
+        </div>
+    </div>
+</div>

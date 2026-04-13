@@ -1,8 +1,27 @@
-<header class="navbar">
-        <h2>My Portfolio</h2>
-        <nav>
-            <a href="./home">Home</a>
-            <a href="./project">Project</a>
-            <a href="./contact">Contact</a>
-        </nav>
-    </header>
+<nav class="navbar">
+   <div class="navbar-logo">
+   <a href="/" style="font-weight: 800; font-size: 1.6rem; text-decoration: none; color: white; letter-spacing: -0.5px;">
+        {{#if isLogin}}
+            <span style="color: rgb(255, 255, 255); font-weight: 900;">
+               Hallo, {{user.name}}
+            </span>
+        {{else}}
+            My Portfolio
+        {{/if}}
+    </a>
+</div>
+    
+    <div class="navbar-links">
+        <a href="/home">Home</a>
+        <a href="/project">Project</a>
+        <a href="/contact">Contact</a>
+        
+        {{#if isLogin}}
+            {{!-- <span style="color: #4CAF50; margin-left: 20px; font-weight: 600;">Halo, {{user.name}}</span> --}}
+            <a href="/logout" style="color: #f44336;">Logout</a>
+        {{else}}
+            <a href="/register">Register</a>
+            <a href="/login">Login</a>
+        {{/if}}
+    </div>
+</nav>

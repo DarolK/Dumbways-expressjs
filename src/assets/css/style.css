@@ -70,6 +70,16 @@ body {
     color: white;
 }
 
+
+.navbar-links {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-links span {
+    font-size: 14px;
+}
+
 /* ================================================================
    4. HERO SECTION (HOME PAGE)
    ================================================================ */
@@ -164,40 +174,54 @@ body {
     box-shadow: 0 10px 25px rgba(76, 175, 80, 0.3);
 }
 
-/* Secondary button - Transparent with border */
-.btn-secondary {
-    background: rgba(255,255,255,0.1);
-    color: #fff;
-    border: 1px solid rgba(255,255,255,0.2);
+
+
+.btn-edit-small, .btn-delete-small {
+    padding: 6px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    font-family: 'Poppins', sans-serif;
 }
 
-.btn-secondary:hover {
-    background: rgba(255,255,255,0.2);
+
+.btn-edit-small {
+    background: rgb(76, 175, 80);
+    color: #ffffff;
+    border-color: rgb(76, 175, 80);
+}
+
+.btn-edit-small:hover {
+    background: rgb(76, 175, 80);
+    color: #ffffff;
+    box-shadow: 0 0 15px rgb(87, 185, 90);
     transform: translateY(-2px);
 }
 
-/* Edit button - Blue gradient */
-.btn-edit {
-    background: linear-gradient(135deg, #2196F3, #1976D2);
-    color: white;
+.btn-delete-small {
+    background: rgb(76, 175, 80);
+    color: #ffffff;
+    border-color: rgb(76, 175, 80);
 }
 
-.btn-edit:hover {
-    background: linear-gradient(135deg, #1976D2, #1565C0);
+.btn-delete-small:hover {
+    background: rgb(76, 175, 80);;
+    color: #ffffff;
+    box-shadow: 0 0 15px rgb(87, 185, 90);;
     transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(33, 150, 243, 0.3);
 }
 
-/* Delete button - Red gradient */
-.btn-delete {
-    background: linear-gradient(135deg, #f44336, #d32f2f);
-    color: white;
-}
-
-.btn-delete:hover {
-    background: linear-gradient(135deg, #d32f2f, #b71c1c);
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(244, 67, 54, 0.3);
+.project-item .project-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end; 
+    margin-top: auto; 
 }
 
 /* ================================================================
@@ -471,6 +495,7 @@ body {
     border: 1px solid rgba(255,255,255,0.1);
 }
 
+
 /* ================================================================
    10. RESPONSIVE DESIGN (Mobile & Tablet)
    ================================================================ */
@@ -546,3 +571,24 @@ body {
 
     .project-header h1 {
         font-size: 1.8rem
+
+
+        /* text animation */
+        @layer utilities {
+  .animate-typing {
+    /* steps(60) disesuaikan dengan perkiraan jumlah karakter teksmu */
+    animation: 
+      typing 4s steps(60, end) forwards, 
+      blink 0.75s step-end infinite;
+  }
+
+  @keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+  }
+
+  @keyframes blink {
+    from, to { border-color: transparent }
+    50% { border-color: #4CAF50 }
+  }
+}

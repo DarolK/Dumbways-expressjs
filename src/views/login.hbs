@@ -1,0 +1,45 @@
+<div class="contact-page">
+    <div class="contact-content">
+        <div class="contact-header">
+            <h1>Login</h1>
+        </div>
+
+        <div class="contact-form-container">
+            <form action="/login" method="POST" class="project-form">
+                
+                {{#if success_msg}}
+                    <div style="background: rgba(76, 175, 80, 0.2); border: 1px solid #4CAF50; color: #fff; padding: 10px; border-radius: 10px; margin-bottom: 20px; text-align: center;">
+                        {{success_msg}}
+                    </div>
+                {{/if}}
+
+
+                {{#if error_msg}}
+                    <div style="background: rgba(244, 67, 54, 0.2); border: 1px solid #f44336; color: #fff; padding: 10px; border-radius: 10px; margin-bottom: 20px; text-align: center;">
+                        {{error_msg}}
+                    </div>
+                {{/if}}
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Masukkan email Anda" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Masukkan password" required>
+                </div>
+
+                <div style="text-align: right;">
+                    <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">
+                        Login
+                    </button>
+                </div>
+                
+                <p style="text-align: center; margin-top: 20px; font-size: 14px; color: #ccc;">
+                    Belum punya akun? <a href="/register" style="color: #4CAF50; text-decoration: none;">Daftar di sini</a>
+                </p>
+            </form>
+        </div>
+    </div>
+</div>

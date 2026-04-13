@@ -1,14 +1,34 @@
 <section class="hero" id="home">
-        <div class="hero-text">
-            <h1>Hi, I'm Darol</h1>
-            <p>I'm a full stack Developer focused on modern, responsive, and aesthetic interfaces.</p>
-
-            <div class="sosmed">
-                <a href="#"><i class="bi bi-instagram"></i></a>
-                <a href="#"><i class="bi bi-facebook"></i></a>
-                <a href="#"><i class="bi bi-whatsapp"></i></a>
-                <a href="#"><i class="bi bi-github"></i></a>
-            </div>
+    <div class="hero-text">
+        <h1>Hi, I'm Darol</h1>
+        
+       <div class="w-fit">
+        <p class="overflow-hidden whitespace-nowrap border-r-4 pr-1 animate-[typingLoop_12s_steps(60)_infinite,blink_0.8s_step-end_infinite]">
+        I'm a full stack Developer focused on modern, responsive, and aesthetic interfaces. </p>
         </div>
-        <div class="hero-img"></div>
-    </section>
+
+        <div class="sosmed">
+            <a href="#"><i class="bi bi-instagram"></i></a>
+            <a href="#"><i class="bi bi-facebook"></i></a>
+            <a href="#"><i class="bi bi-whatsapp"></i></a>
+            <a href="#"><i class="bi bi-github"></i></a>
+        </div>
+    </div>
+    <div class="hero-img"></div>
+</section>
+
+<style>
+    @keyframes typingLoop {
+        /* 0% ke 30%: Proses mengetik satu per satu */
+        0%, 5% { width: 0; }
+        30%, 80% { width: 100%; } /* 80%: Teks tetap tampil penuh agar bisa dibaca lama */
+        
+        /* 90% ke 100%: Menghilang cepat atau reset untuk looping */
+        90%, 100% { width: 0; }
+    }
+
+    @keyframes blink {
+        from, to { border-color: transparent }
+        50% { border-color: none }
+    }
+</style>
